@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Job Search Hub</title>
+</head>
+<body>
+    <h1>Job Search Hub</h1>
+    <p>Search imported job listings. Live job search is not connected yet.</p >
+
+    <form action="/" method="get">
+        <input type="hidden" name="search" value="1">
+
+        <p>
+            <label for="keyword">Job title or skill:</label>
+            <input
+                id="keyword"
+                name="keyword"
+                type="search"
+                placeholder="e.g. Analyst, Python"
+                value="{{ keyword }}"
+            >
+        </p >
+
+        <p>
+            <label for="location">Location:</label>
+            <input
+                id="location"
+                name="location"
+                type="text"
+                placeholder="e.g. London, Dublin"
+                value="{{ location }}"
+            >
+        </p >
+
+        <fieldset>
+            <legend>Job sources — select one or more</legend>
+
+            {% for source in source_options %}
+                <label>
+                    <input
+                        type="checkbox"
+                        name="source"
+                        value="{{ source }}"
+                        {% if source in selected_sources %}checked{% endif %}
+                    >
+                    {{ "Other job sources"
+                       if source == "其他招聘來源"
+                       else source }}
+                </label>
+            {% endfor %}
+        </fieldset>
+
+        <p>
+            <button type="submit">Search jobs</button>
+            <a href=" ">Reset</a >
+        </p >
+    </form>
+
+    <hr>
+
+    <h2>{{ jobs | length }} results found</h2>
+
+    {% for job in jobs %}
+        <article>
+            <h3>{{ job["Job Title"] }}</h3>
+
+            <p>{{ job["Company"] }} · {{ job["Location"] }}</p >
+
+            <p>
+                Level: {{ job["Job Level"] }}
+                | Work arrangement: {{ job["Remote/On-site"] }}
+            </p >
+
+            <p>{{ job["Job Description"] }}</p >
+            <p>Skills: {{ job["Skills"] }}</p >
+
+            <p>
+                Source:
+                {{ "Other job sources"
+                   if job["Search Source"] == "其他招聘來源"
+                   else job["Search Source"] }}
+            </p >
+
+            <p>Listing status: {{ job["Listing Status"] }}</p >
+
+            <a href="{{ job['Link'] }}"
+               target="_blank"
+               rel="noopener noreferrer">
+                View original listing
+            </a >
+        </article>
+
+        <hr>
+    {% else %}
+        <p>No matching listings. Try different keywords, locations or sources.</p >
+    {% endfor %}
+</body>
+</html>
