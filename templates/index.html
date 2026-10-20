@@ -8,10 +8,7 @@
 </head>
 <body>
     <h1>Job Search Hub</h1>
-    <p>
-        Search Reed live. Indeed and other sources currently use imported samples.
-        Submit a search to load live Reed results.
-    </p >
+    <p>Search UK jobs with Reed and Adzuna, or US jobs with Adzuna.</p >
 
     <form action="/" method="get">
         <input type="hidden" name="search" value="1">
@@ -36,6 +33,23 @@
                 placeholder="e.g. London, Dublin"
                 value="{{ location }}"
             >
+        </p >
+
+        <p>
+
+            <label for="country">Country:</label>
+
+            <select id="country" name="country">
+                <option value="gb"
+                        {% if country == "gb" %}selected{% endif %}>
+                    United Kingdom
+                </option>
+
+                <option value="us"
+                        {% if country == "us" %}selected{% endif %}>
+                    United States
+                </option>
+            </select>
         </p >
 
         <fieldset>
@@ -130,5 +144,6 @@
             {% endfor %}
         </nav>
     {% endif %}
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
 </body>
 </html>

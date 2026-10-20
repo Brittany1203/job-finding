@@ -222,6 +222,31 @@ hr {
     color: #ffffff;
 }
 
+select {
+    width: 100%;
+    min-height: 48px;
+    padding: 12px 14px;
+    border: 1px solid #bac6d8;
+    border-radius: 10px;
+    background: #fbfcfe;
+    color: #243247;
+    font: inherit;
+}
+
+select:focus-visible {
+    outline: 3px solid #79a4ff;
+    outline-offset: 3px;
+}
+
+.source-disabled {
+    color: #68768a;
+    cursor: not-allowed;
+}
+
+.source-disabled input {
+    cursor: not-allowed;
+}
+
 /* Mobile */
 @media (max-width: 640px) {
     body {
