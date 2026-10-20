@@ -77,7 +77,8 @@ input::placeholder {
 
 input:focus-visible,
 button:focus-visible,
-a:focus-visible {
+a:focus-visible,
+summary:focus-visible {
     outline: 3px solid #79a4ff;
     outline-offset: 3px;
 }
@@ -247,6 +248,115 @@ select:focus-visible {
     cursor: not-allowed;
 }
 
+.search-history {
+    margin: 24px 0;
+    padding: 24px;
+    background: #fff;
+    border: 1px solid #dce2ec;
+    border-radius: 16px;
+}
+
+.history-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.history-header h2 {
+    margin: 0;
+    font-size: 18px;
+}
+
+#clear-history {
+    padding: 8px 12px;
+    background: #eef2fa;
+    color: #2458cb;
+    border: 1px solid #dce2ec;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+#history-list {
+    list-style: none;
+    margin: 16px 0 0;
+    padding: 0;
+}
+
+#history-list li + li {
+    margin-top: 8px;
+}
+
+#history-list a {
+    display: block;
+    padding: 12px 14px;
+    background: #f3f5f9;
+    color: #2458cb;
+    border-radius: 8px;
+    text-decoration: none;
+    overflow-wrap: anywhere;
+}
+
+#history-list a:hover {
+    background: #e5ecfa;
+    text-decoration: underline;
+}
+
+#history-empty,
+#history-message {
+    color: #68768a;
+    font-size: 14px;
+}
+
+#clear-history[hidden],
+#history-empty[hidden] {
+    display: none;
+}
+
+.page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 16px;
+    margin-bottom: 16px;
+}
+
+.page-header h1 {
+    margin: 0;
+}
+
+.history-dropdown {
+    position: relative;
+}
+
+.history-dropdown > summary {
+    padding: 10px 16px;
+    color: #2458cb;
+    background: #fff;
+    border: 1px solid #dce2ec;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.history-dropdown > .search-history {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    z-index: 10;
+    box-sizing: border-box;
+    width: min(380px, calc(100vw - 48px));
+    max-height: 400px;
+    overflow-y: auto;
+    margin: 10px 0 0;
+    box-shadow: 0 12px 32px rgb(0 0 0 / 12%);
+}
+
+#history-message:empty {
+    display: none;
+}
+
 /* Mobile */
 @media (max-width: 640px) {
     body {
@@ -264,5 +374,9 @@ select:focus-visible {
 
     article h3 {
         font-size: 20px;
+    }
+
+    .history-dropdown {
+        margin-left: auto;
     }
 }
