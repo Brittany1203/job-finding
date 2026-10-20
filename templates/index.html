@@ -4,10 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Job Search Hub</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
     <h1>Job Search Hub</h1>
-    <p>Search imported job listings. Live job search is not connected yet.</p >
+    <p>
+        Search Reed live. Indeed and other sources currently use imported samples.
+        Submit a search to load live Reed results.
+    </p >
 
     <form action="/" method="get">
         <input type="hidden" name="search" value="1">
@@ -54,13 +58,23 @@
 
         <p>
             <button type="submit">Search jobs</button>
-            <a href=" ">Reset</a >
+            <a href="{{ url_for('index', reset='1') }}">Reset</a >
         </p >
     </form>
 
     <hr>
 
-    <h2>{{ jobs | length }} results found</h2>
+    {% if error_message %}
+        <p role="alert">{{ error_message }}</p >
+    {% endif %}
+
+    {% if searched %}
+        <h2>{{ total_results }} results retrieved</h2>
+
+        {% if total_pages > 0 %}
+            <p>Page {{ page }} of {{ total_pages }} · Up to 10 jobs per page</p >
+        {% endif %}
+    {% endif %}
 
     {% for job in jobs %}
         <article>
@@ -94,7 +108,27 @@
 
         <hr>
     {% else %}
-        <p>No matching listings. Try different keywords, locations or sources.</p >
+        {% if searched %}
+            {% if not error_message %}
+                <p>No matching listings. Try different keywords, locations or sources.</p >
+            {% endif %}
+        {% else %}
+            <p>Enter your search criteria and select Search jobs to begin.</p >
+        {% endif %}
     {% endfor %}
+
+    {% if total_pages > 1 %}
+        <nav class="pagination" aria-label="Search result pages">
+            {% for item in page_links %}
+                {% if item.number == page %}
+                    <span class="current-page" aria-current="page">
+                        {{ item.number }}
+                    </span>
+                {% else %}
+                    <a href=" ">{{ item.number }}</a >
+                {% endif %}
+            {% endfor %}
+        </nav>
+    {% endif %}
 </body>
 </html>
